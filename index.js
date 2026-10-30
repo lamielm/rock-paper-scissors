@@ -1,5 +1,3 @@
-// 1. display options for user to select (Rock=1, Paper=2, Scissors=3)
-// 2. receive input from user of their choice
 let humanChoice = "";
 
 function getHumanChoice() {
@@ -10,7 +8,6 @@ function getHumanChoice() {
   return humanChoice.toLowerCase();
 }
 
-// 3. computer will randomly generate a choice
 let computerChoice = "";
 function getComputerChoice() {
   // generate a number 0 to 1, multiply it by 3, round down, and add 1
@@ -29,43 +26,55 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-// 4. compare user choice vs computer choice
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
   console.log(`Human choice: ${humanChoice} \nComputer choice: ${computerChoice}`);
-  // 5. if they are the same, display draw and repeat from step 2
   if (humanChoice === computerChoice) {
     console.log("It's a draw!");
-    // 6. results: rock vs paper- Paper wins
-    //    paper vs scissors- Scissors wins
-    //    scissors vs rock- Rock wins
+    return "Draw";
   } else if (humanChoice === "paper" && computerChoice == "rock") {
     console.log("Paper beats Rock.  You win!");
-    humanScore += 1;
+    return "Human Won";
   } else if (humanChoice === "scissors" && computerChoice == "paper") {
     console.log("Scissors beats Paper.  You win!");
-    humanScore += 1;
+    return "Human Won";
   } else if (humanChoice === "rock" && computerChoice == "scissors") {
     console.log("Scissors beats Paper.  You win!");
-    humanScore += 1;
+    return "Human Won";
   } else {
     // Note small visual issue is these are lowercase while the others are capitalized...
     console.log(`${humanChoice} losses to ${computerChoice}.  Better luck next time!`);
-    computerScore += 1;
+    return "Computer Won";
   }
 }
 
-//    Display results
-// 7. if user won, display congratulations (DONE)
-// 8. if computer won, display better luck next time (DONE)
-// 9. display "Would you like to play again?" (Yes=1, No=2)
-// 10. receive input from user of their choice
-// 11. if user chooses 2, exit the program
-// 12. if user chooses 1, restart from step 1
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+  let roundNumber = 0;
+  let roundResult = "";
+  while (roundNumber < 5) {
+    let computerSelection = getComputerChoice();
+    let humanSelection = getHumanChoice();
+    roundResult = playRound(humanSelection, computerSelection);
+    if (roundResult === "Human Won") {
+      humanScore += 1;
+      roundNumber += 1;
+    } else if (roundResult === "Computer Won") {
+      computerScore += 1;
+      roundNumber += 1;
+    } else {
+      roundNumber += 1;
+    }
+    console.log(`After ${roundNumber} rounds, the score is Human: ${humanScore}  Computer: ${computerScore}`);
+  }
+  if (humanScore > computerScore) {
+    console.log("CONGRATULATIONS!  You beat the computer!");
+  } else if (humanScore < computerScore) {
+    console.log("YOU LOSE! Better luck next time.");
+  } else {
+    console.log("It's a draw...");
+  }
+}
 
-let computerSelection = getComputerChoice();
-let humanSelection = getHumanChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
+console.log("Thanks for playing!");
