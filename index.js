@@ -1,5 +1,13 @@
 // 1. display options for user to select (Rock=1, Paper=2, Scissors=3)
 // 2. receive input from user of their choice
+let humanChoice = "";
+function getHumanChoice() {
+  // Collect choice of the user
+  humanChoice = prompt(`Let's play Rock, Paper, Scissors!
+        Please choose Rock, Paper, or Scissors`);
+  return humanChoice;
+}
+
 // 3. computer will randomly generate a choice
 let computerChoice = "";
 function getComputerChoice() {
